@@ -50,12 +50,18 @@ if [ ! -z "${DEBUG}" ]; then
 fi
 
 # set chart repo flag
-if [ ! -z "${DRY_RUN}" ]; then
+if [ ! -z "${DRY_RUN}" ];`` then
   msg "Releasing Docker Compose - DRY RUN"
   komposeCmd="kompose ${verbose} convert --stdout ${file} ${volumes} ${replicas}"
+elif [ ! -z "${CONVERT}" ]; the n
+  msg "Releasing Docker Compose - Convert"
+
+
+  mkdir k8s
+  komposeCmd="kompose ${verbose} convert -o k8s ${file}  ${volumes} ${replicas}"
 else
   msg "Releasing Docker Compose ..."
-  komposeCmd="kompose ${verbose} up ${namespace} ${file} ${replicas} ${volumes}"
+  komposeCmd="kompose ${verbose} up --build=none --push-image=false ${namespace} ${file} ${replicas} ${volumes}"
 fi
 
 # execute kompose command
